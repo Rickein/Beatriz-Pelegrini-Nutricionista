@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beatriz Pelegrini | Link in Bio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playball&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        /* Variáveis de Cor para Fácil Manutenção */
+        :root {
+            --primary-bg: #DDCFF5;        /* Lavanda do Header */
+            --body-bg: #FDFBFF;           /* Fundo da Página (Interno) */
+            --desktop-bg: #F1F5F9;        /* Fundo fora do celular no Desktop */
+            --text-main: #4b1b4a;         /* Roxo Forte (OLIVIA) */
+            --text-script: #C5B3E6;       /* Roxo Suave (wilson) */
+            --card-bg: #FFFFFF;           /* Fundo dos Botões */
+            --card-shadow: rgba(0, 0, 0, 0.04);
+            --device-border: #1E293B;     /* Cor da borda do celular */
+            
+            /* Cores dos Ícones */
+            --icon-about: #DDCFF5;
+            --icon-portfolio: #FAD2C7;
+            --icon-services: #B0E0D6;
+            --icon-work: #F7F7F0;
+            --icon-call: #DDCFF5;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--desktop-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container do "Aparelho" */
+        .phone-mockup {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--body-bg);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @media (min-width: 768px) {
+            .phone-mockup {
+                border: 12px solid var(--device-border);
+                border-radius: 3.5rem;
+                height: 850px;
+                overflow-y: auto;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                margin: 2rem 0;
+            }
+            /* Esconder scrollbar no mockup */
+            .phone-mockup::-webkit-scrollbar { display: none; }
+            .phone-mockup { -ms-overflow-style: none; scrollbar-width: none; }
+        }
+
+        /* Notch do Celular */
+        .device-notch {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: var(--device-border);
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+            z-index: 50;
+        }
+
+        @media (min-width: 768px) {
+            .device-notch { display: block; }
+        }
+
+        .font-brand { font-family: 'Montserrat', sans-serif; }
+        .font-script { font-family: 'Playball', cursive; }
+
+        /* Efeito Curvado do Header */
+        .header-curve {
+            background-color: var(--primary-bg);
+            height: 270px;
+            width: 100%;
+            position: relative;
+            border-bottom-left-radius: 50% 20%;
+            border-bottom-right-radius: 50% 20%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        /* Logo da Empresa (Adicionado conforme solicitação) */
+        .company-logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            opacity: 0; /* Controlado pelo GSAP */
+        }
+
+        .company-logo {
+    max-width: 180px;
+    /* max-height: 120px; */
+    /* object-fit: contain; */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+        }
+
+        /* Avatar com Borda */
+        .avatar-container {
+            width: 170px;
+            height: 170px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            position: absolute;
+            bottom: -70px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            z-index: 10;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Estilização dos Links */
+        .link-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            text-decoration: none;
+            border: 1px solid rgba(0,0,0,0.02);
+            opacity: 0; 
+            transform: translateY(20px);
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 16px;
+        }
+
+        .arrow-right {
+            color: var(--icon-call);
+            margin-left: auto;
+        }
+
+        /* Backgrounds suaves para ícones */
+        .bg-about { background-color: rgba(221, 207, 245, 0.4); color: #4b1b4a; }
+        .bg-portfolio { background-color: rgba(250, 210, 199, 0.4); color: #D68C7A; }
+        .bg-services { background-color: rgba(176, 224, 214, 0.4); color: #5E9E91; }
+        .bg-work { background-color: rgba(247, 247, 240, 1.0); color: #A0AEC0; }
+        .bg-call { background-color: rgba(221, 207, 245, 0.4); color: #8A76AC; }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .social-btn:hover { transform: translateY(-3px); }
+
+        .footer-text {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #CBD5E0;
+            text-transform: uppercase;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+
+    <!-- Mockup de Celular -->
+    <div class="phone-mockup">
+        <!-- Notch (Desktop Only) -->
+        <div class="device-notch"></div>
+
+        <!-- Conteúdo Interno -->
+        <main class="w-full min-h-full flex flex-col items-center pb-12 overflow-x-hidden">
+            
+            <!-- Header Section -->
+            <header class="header-curve">
+                <!-- Espaço para o Logo da Empresa -->
+                <div class="company-logo-container">
+                    <!-- Substitua o src pelo link da logo da empresa -->
+                    <img src="/assets/BeatrizPelegrini_Logo.webp" alt="Company Logo" class="company-logo">
+                </div>
+
+                <div class="avatar-container">
+                    <img src="/assets/BeatrizPelegrini_Perfil.webp" alt="Beatriz Pelegrini Profile">
+                </div>
+            </header>
+
+            <!-- Profile Info -->
+            <section class="mt-20 text-center px-6">
+                <h1 class="text-4xl flex items-center justify-center gap-2">
+                    <span class="font-brand font-bold  tracking-tight" style="color: var(--text-main);">Beatriz</span>
+                    <span class="font-brand font-bold  tracking-tight " style="color: var(--text-script);">Pelegrini</span>
+                </h1>
+                
+                <div class="mt-4">
+                    <span class="px-5 py-1.5 rounded-full text-sm font-bold tracking-wide" 
+                          style="background: rgba(221, 207, 245, 0.5); color:#4b1b4a;">
+                      Especialista em emagrecimento
+                    </span>
+                </div>
+            </section>
+
+            <!-- Links List -->
+            <nav class="w-full px-6 mt-10">
+                <a href="https://wa.me/5511915386344?text=Olá%2C%20gostaria%20de%20mais%20informações%20sobre%20o%20acompanhamento%20nutricional" class="link-card">
+                    <div class="icon-box bg-portfolio">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide ">Agendamento</p>
+                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">te ajudo com a sua alimentação</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
+
+                <a href="/assets/BeatrizPelegrini_PDF.pdf" target="_blank" class="link-card">
+                    <div class="icon-box bg-about">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide ">Informações</p>
+                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">Como Funciona a minha consulta ?</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
+
+
+               <!-- <a href="#" class="link-card">
+                    <div class="icon-box bg-services">
+                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide uppercase">My Services</p>
+                        <p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider">How I can help you</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
+
+                <a href="#" class="link-card">
+                    <div class="icon-box bg-work">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide uppercase">Work With Me</p>
+                        <p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Let's create together</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
+
+                <a href="#" class="link-card">
+                    <div class="icon-box bg-call">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide uppercase">Book a Call</p>
+                        <p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Schedule a quick chat</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
+
+                -->
+            </nav>
+
+            <!-- Social Media -->
+            <div class="flex gap-6 mt-10 mb-8">
+                <a href="https://www.instagram.com/nutri.beatrizpelegrini/" target="_blank"  class="social-btn bg-portfolio">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+                <!-- <a href="#" class="social-btn bg-portfolio" style="color: #D68C7A;">
+                    <i data-lucide="facebook" class="w-5 h-5 fill-current"></i>
+                </a>
+                <a href="#" class="social-btn bg-work" style="color: #A0AEC0;">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31 0 2.591.214 3.75.606V5.32a5.087 5.087 0 01-2.05-.436v10.975c0 3.486-2.825 6.311-6.311 6.311-3.486 0-6.311-2.825-6.311-6.311 0-3.486 2.825-6.311 6.311-6.311.176 0 .349.008.52.023V14c-.17-.01-.34-.015-.52-.015-1.928 0-3.494 1.566-3.494 3.494s1.566 3.494 3.494 3.494 3.494-1.566 3.494-3.494V0h4.63zM21.213 6.643c-1.353 0-2.618-.415-3.663-1.127V10c0 4.142 3.358 7.5 7.5 7.5v-3.32a4.173 4.173 0 01-1.464-.263c-1.428-.564-2.373-1.93-2.373-3.417V6.643z"/></svg>
+                </a>-->
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-auto text-center">
+                <p class="footer-text font-bold">Rick Gonçalves © 2024</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        // Inicializa os Ícones Lucide
+        lucide.createIcons();
+
+        // Animações GSAP
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+
+            // Animação de entrada do "Celular" (apenas em desktop)
+            if (window.innerWidth >= 768) {
+                tl.from(".phone-mockup", { duration: 1.2, scale: 0.9, opacity: 0, ease: "expo.out" });
+            }
+
+            // Animação do Header e Avatar
+            tl.from(".header-curve", { duration: 0.7, y: -50, opacity: 0, ease: "power3.out" }, "-=0.5")
+              .from(".avatar-container", { duration: 0.8, scale: 0, ease: "back.out(1.7)" }, "-=0.5")
+              
+              // Animação do Logo da Empresa (surge deslizando de cima)
+              .to(".company-logo-container", { duration: 0.6, opacity: 1, y: 0, startAt: {y: -20}, ease: "power2.out" }, "-=0.6")
+
+              // Animação do Texto e Handle
+              .from("h1", { duration: 0.6, y: 20, opacity: 0, ease: "power2.out" }, "-=0.3")
+              .from(".mt-4 span", { duration: 0.5, scale: 0.8, opacity: 0, ease: "power2.out" }, "-=0.2")
+
+              // Animação Stagger dos Links
+              .to(".link-card", { 
+                duration: 0.5, 
+                opacity: 1, 
+                y: 0, 
+                stagger: 0.15, 
+                ease: "power3.out" 
+              }, "-=0.2")
+
+              // Animação dos Sociais e Footer
+              .from(".social-btn", { duration: 0.5, y: 10, opacity: 0, stagger: 0.1, ease: "power2.out" }, "-=0.3")
+              .from(".footer-text", { duration: 0.5, opacity: 0 }, "-=0.2");
+        });
+
+        // Interação de hover nos cards
+        document.querySelectorAll('.link-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { scale: 1.02, duration: 0.3, ease: "power2.out", boxShadow: "0 10px 25px rgba(0,0,0,0.06)" });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { scale: 1, duration: 0.3, ease: "power2.out", boxShadow: "0 4px 15px rgba(0,0,0,0.04)" });
+            });
+        });
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
