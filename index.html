@@ -36,7 +36,7 @@
             --icon-about: #DDCFF5;
             --icon-portfolio: #FAD2C7;
             --icon-services: #B0E0D6;
-            --icon-work: #F7F7F0;
+            --icon-work: #d1d145;
             --icon-call: #DDCFF5;
         }
 
@@ -108,6 +108,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
+                 border-bottom: 2px solid #600962;
         }
 
         /* Logo da Empresa (Adicionado conforme solicitação) */
@@ -124,10 +125,9 @@
         }
 
         .company-logo {
-    max-width: 180px;
-    /* max-height: 120px; */
+    max-width: 160px;
+    max-height: 140px; 
     /* object-fit: contain; */
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
         }
 
         /* Avatar com Borda */
@@ -162,7 +162,7 @@
             padding: 14px 18px;
             margin-bottom: 16px;
             text-decoration: none;
-            border: 1px solid rgba(0,0,0,0.02);
+            border: 1px solid rgb(0 0 0 / 12%);
             opacity: 0; 
             transform: translateY(20px);
         }
@@ -183,10 +183,10 @@
         }
 
         /* Backgrounds suaves para ícones */
-        .bg-about { background-color: rgba(221, 207, 245, 0.4); color: #4b1b4a; }
+        .bg-about { background-color: rgba(221, 207, 245, 0.4); color: #4b1b4ac2; }
         .bg-portfolio { background-color: rgba(250, 210, 199, 0.4); color: #D68C7A; }
         .bg-services { background-color: rgba(176, 224, 214, 0.4); color: #5E9E91; }
-        .bg-work { background-color: rgba(247, 247, 240, 1.0); color: #A0AEC0; }
+        .bg-work { background-color: rgb(214 229 255); color: #1268d5; }
         .bg-call { background-color: rgba(221, 207, 245, 0.4); color: #8A76AC; }
 
         .social-btn {
@@ -207,7 +207,7 @@
             text-transform: uppercase;
         }
     </style>
-<link rel="stylesheet" href="/index.css">
+
 </head>
 <body>
 
@@ -236,15 +236,15 @@
             <section class="mt-20 text-center px-6">
                 <h1 class="text-4xl flex items-center justify-center gap-2">
                     <span class="font-brand font-bold  tracking-tight" style="color: var(--text-main);">Beatriz</span>
-                    <span class="font-brand font-bold  tracking-tight " style="color: var(--text-script);">Pelegrini</span>
+                    <span class="font-brand font-bold  tracking-tight " style="color:  var(--text-main);">Pelegrini</span>
                 </h1>
                 
-                <div class="mt-4">
-                    <span class="px-5 py-1.5 rounded-full text-sm font-bold tracking-wide" 
+                <div class="mt-4 w-full">
+                    <span class="px-5 py-1.5 rounded-full text-sm font-bold" 
                           style="background: rgba(221, 207, 245, 0.5); color:#4b1b4a;">
-                      Especialista em emagrecimento
+                      Nutricionista especialista em emagrecimento
                     </span>
-                    
+
                 </div>
             </section>
 
@@ -256,7 +256,7 @@
                     </div>
                     <div>
                         <p class="font-bold text-gray-700 text-sm tracking-wide ">Agendamento</p>
-                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">te ajudo com a sua alimentação</p>
+                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">pronta para a sua mudança?</p>
                     </div>
                     <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
                 </a>
@@ -266,12 +266,35 @@
                         <i data-lucide="info" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-gray-700 text-sm tracking-wide ">Informações</p>
-                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">Como Funciona a minha consulta ?</p>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide ">Duvidas?</p>
+                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">Veja como Funciona a minha consulta</p>
                     </div>
                     <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
                 </a>
 
+
+                <a href="https://www.lojamaismu.com.br/" target="_blank" class="link-card">
+                    <div class="icon-box bg-work">
+                        <i data-lucide="globe" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide ">Meu Site</p>
+                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">Você terá todas as informações aqui</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
+
+
+                <a href="https://www.lojamaismu.com.br/" target="_blank" class="link-card">
+                    <div class="icon-box bg-services">
+                        <i data-lucide="badge-percent" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-700 text-sm tracking-wide ">10% OFF: NUTRIBIA</p>
+                        <p class="text-[11px] text-gray-400 font-medium  tracking-wider">Use meu cupom 10% off na +MU</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="arrow-right w-5 h-5"></i>
+                </a>
 
                <!-- <a href="#" class="link-card">
                     <div class="icon-box bg-services">
@@ -310,7 +333,7 @@
             </nav>
 
             <!-- Social Media -->
-            <div class="flex gap-6 mt-10 mb-8">
+            <div class="flex gap-5 mb-5">
                 <a href="https://www.instagram.com/nutri.beatrizpelegrini/" target="_blank"  class="social-btn bg-portfolio">
                     <i data-lucide="instagram" class="w-5 h-5"></i>
                 </a>
@@ -345,7 +368,7 @@
 
             // Animação do Header e Avatar
             tl.from(".header-curve", { duration: 0.7, y: -50, opacity: 0, ease: "power3.out" }, "-=0.5")
-              .from(".avatar-container", { duration: 0.8, scale: 0, ease: "back.out(1.7)" }, "-=0.5")
+              .from(".avatar-container", { duration: 1, scale: 0, ease: "back.out(1.7)" }, "-=0.5")
               
               // Animação do Logo da Empresa (surge deslizando de cima)
               .to(".company-logo-container", { duration: 0.6, opacity: 1, y: 0, startAt: {y: -20}, ease: "power2.out" }, "-=0.6")
@@ -378,6 +401,6 @@
             });
         });
     </script>
-<script type="module" src="/index.tsx"></script>
+    
 </body>
 </html>
